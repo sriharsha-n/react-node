@@ -5,23 +5,42 @@ const app = express(),
       port = 3080;
 
 const mongoose = require('mongoose');
-// place holder for the data
-const users = [];
+
+mongoose.connect("mongodb://localhost:27017/myDB", {useNewUrlParser: true});
+
+const userSchema = {
+  firstName: String,
+  lastName: String,
+  email: String
+}
+
+const User=new mongoose.model("User",userSchema);
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../my-app/build')));
 
 app.get('/api/users', (req, res) => {
-  console.log('api/users called!')
-  res.json(users);
+  console.log('api/users called!');
+  User.find({},function(err,users){
+    res.json(users);
+  })
 });
 
 app.post('/api/user', (req, res) => {
-  const user = req.body.user;
-  console.log('Adding user:::::', user);
-  users.push(user);
+  const user=new User(req.body.user)
+
+  user.save(function(err){
+    if(!err){
+      console.log("added"+user);
+    }
+    else{
+      console.log(err);
+    }
+  })
+
   res.json("user addedd");
 });
+
 
 app.get('/', (req,res) => {
   res.sendFile(path.join(__dirname, '../my-app/build/index.html'));

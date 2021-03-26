@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Button,TextField } from '@material-ui/core/';
 
 const CreateUser = ({onChangeForm, createUser }) => {
 
@@ -12,21 +12,22 @@ const CreateUser = ({onChangeForm, createUser }) => {
                 <form>
                     <div className="row">
                         <div className="form-group col-md-6">
-                            <label htmlFor="exampleInputEmail1">First Name</label>
-                            <input type="text" onChange={(e) => onChangeForm(e)}  className="form-control" name="firstname" id="firstname" aria-describedby="emailHelp" placeholder="First Name" />
+                            <TextField id="firstname" name="firstname" onChange={(e) => onChangeForm(e)} label="First Name" variant="standard" /> 
                         </div>
                         <div className="form-group col-md-6">
-                            <label htmlFor="exampleInputPassword1">Last Name</label>
-                            <input type="text" onChange={(e) => onChangeForm(e)} className="form-control" name="lastname" id="lastname" placeholder="Last Name" />
+                            <TextField id="lastname" name="lastname" onChange={(e) => onChangeForm(e)} label="Last Name" variant="standard" />
                         </div>
                     </div>
                     <div className="row">
                         <div className="form-group col-md-12">
-                            <label htmlFor="exampleInputEmail1">Email</label>
-                            <input type="text" onChange={(e) => onChangeForm(e)} className="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email" />
+                            <TextField error={false}
+ id="email" name="email" onChange={(e) => onChangeForm(e)} label="Email" variant="standard" />
                         </div>
                     </div>
-                    <button type="button" onClick= {(e) => createUser()} className="btn btn-danger">Create</button>
+                    <Button variant="contained" onClick= {(e) => createUser()} color="secondary">
+                        Submit
+                    </Button>
+                    {/* <button type="button" onClick= {(e) => createUser()} className="btn btn-danger">Create</button> */}
                 </form>
                 </div>
             </div>

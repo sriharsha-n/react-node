@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button,TextField } from '@material-ui/core/';
 
 export const DisplayBoard = ({numberOfUsers, getAllUsers}) => {
     
@@ -9,7 +10,9 @@ export const DisplayBoard = ({numberOfUsers, getAllUsers}) => {
             {numberOfUsers}
             </div>
             <div className="btn">
-                <button type="button" onClick={(e) => getAllUsers()} className="btn btn-warning">Get all Users</button>
+                <Button variant="contained" onClick={(e) => getAllUsers()}  color="primary">
+                    Get ALL Users
+                </Button>
             </div>
         </div>
     )

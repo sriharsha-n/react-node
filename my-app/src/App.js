@@ -51,7 +51,7 @@ class App extends Component {
         <div className="container mrgnbtm">
           <div className="row">
             <div className="col-md-8">
-                <CreateUser 
+                <CreateUser
                   user={this.state.user}
                   onChangeForm={this.onChangeForm}
                   createUser={this.createUser}
