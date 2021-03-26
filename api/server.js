@@ -41,6 +41,18 @@ app.post('/api/user', (req, res) => {
   res.json("user addedd");
 });
 
+app.post('/api/user/delete',function(req,res){
+    console.log(req.body.id);
+    User.remove({_id:req.body.id},function(err){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log("deleted")
+      }
+    });
+})
+
 
 app.get('/', (req,res) => {
   res.sendFile(path.join(__dirname, '../my-app/build/index.html'));

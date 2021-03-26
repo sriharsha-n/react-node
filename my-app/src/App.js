@@ -1,49 +1,66 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Header } from './components/Header'
 import { Users } from './components/Users'
 import { DisplayBoard } from './components/DisplayBoard'
 import CreateUser from './components/CreateUser'
-import { getAllUsers, createUser } from './services/UserService'
+import { getAllUsersAPI, createUserAPI,deleteUserAPI } from './services/UserService'
 
-class App extends Component {
+function App(){
 
-  state = {
-    user: {},
-    users: [],
-    numberOfUsers: 0
-  }
+  
+  const [user, setuser] = useState({});
+  const [users, setusers] = useState([]);
+  const [userscount, setuserscount] = useState(0);
 
-  createUser = (e) => {
-      createUser(this.state.user)
+  function createUser(e) {
+    createUserAPI(user)
         .then(response => {
           console.log(response);
-          this.setState({numberOfUsers: this.state.numberOfUsers + 1})
+          // this.setState({numberOfUsers: this.state.numberOfUsers + 1})
+          setuserscount(userscount+1);
       });
+      getAllUsers()
   }
 
-  getAllUsers = () => {
-    getAllUsers()
+  function getAllUsers(){
+    getAllUsersAPI()
       .then(users => {
-        console.log(users)
-        this.setState({users: users, numberOfUsers: users.length})
+        // this.setState({users: users, numberOfUsers: users.length})
+        setusers(users);
+        setuserscount(users.length);
       });
   }
 
-  onChangeForm = (e) => {
-      let user = this.state.user
+  function onChangeForm(e) {
+      let user_local = user
       if (e.target.name === 'firstname') {
-          user.firstName = e.target.value;
+          user_local.firstName = e.target.value;
       } else if (e.target.name === 'lastname') {
-          user.lastName = e.target.value;
+          user_local.lastName = e.target.value;
       } else if (e.target.name === 'email') {
-          user.email = e.target.value;
+          user_local.email = e.target.value;
       }
-      this.setState({user})
+      setuser(user_local);
   }
 
-  render() {
+  function deleteUser(id){
+    
+      deleteUserAPI(id);
+      getAllUsers();
+  }
+
+  function getUsersCount(){
+    console.log("hi")
+    getAllUsersAPI()
+    .then(users_local => {
+      setuserscount(users_local.length);
+    });
+  }
+  getUsersCount();
+
+
     
     return (
       <div className="App">
@@ -52,27 +69,26 @@ class App extends Component {
           <div className="row">
             <div className="col-md-8">
                 <CreateUser
-                  user={this.state.user}
-                  onChangeForm={this.onChangeForm}
-                  createUser={this.createUser}
+                  user={user}
+                  onChangeForm={onChangeForm}
+                  createUser={createUser}
                   >
                 </CreateUser>
             </div>
             <div className="col-md-4">
                 <DisplayBoard
-                  numberOfUsers={this.state.numberOfUsers}
-                  getAllUsers={this.getAllUsers}
+                  numberOfUsers={userscount}
+                  getAllUsers={getAllUsers}
                 >
                 </DisplayBoard>
             </div>
           </div>
         </div>
         <div className="row mrgnbtm">
-          <Users users={this.state.users}></Users>
+          <Users users={users} deleteuser={deleteUser}></Users>
         </div>
       </div>
     );
-  }
 }
 
 export default App;

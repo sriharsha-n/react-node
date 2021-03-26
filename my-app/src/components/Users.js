@@ -1,6 +1,7 @@
 import React from 'react'
-
-export const Users = ({users}) => {
+import { Delete } from "@material-ui/icons"
+import { IconButton } from '@material-ui/core';
+export const Users = ({users,deleteuser}) => {
 
     console.log('users length:::', users.length)
     if (users.length === 0) return null
@@ -13,6 +14,11 @@ export const Users = ({users}) => {
                   <td>{user.firstName}</td>
                   <td>{user.lastName}</td>
                   <td>{user.email}</td>
+                  <td>
+                    <IconButton aria-label="delete" id={user._id}  onClick={(e) => {deleteuser(user._id)}}>
+                        <Delete fontSize="medium" color="danger" />
+                    </IconButton>    
+                  </td>
               </tr>
           )
     }
@@ -22,14 +28,15 @@ export const Users = ({users}) => {
     return(
         <div className="container">
             <h2>Users</h2>
-            <table className="table table-bordered">
-                <thead>
-                <tr>
-                    <th>User Id</th>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Email</th>
-                </tr>
+            <table className="table table-bordered table-hover table-striped">
+                <thead className="bg-dark text-white">
+                    <tr>
+                        <th>User Id</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email</th>
+                        <th>Delete</th>
+                    </tr>
                 </thead>
                 <tbody>
                     {userTable}
