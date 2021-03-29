@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { Header } from './components/Header'
+import Header  from './components/Header'
 import { Users } from './components/Users'
 import { DisplayBoard } from './components/DisplayBoard'
 import CreateUser from './components/CreateUser'
 import { getAllUsersAPI, createUserAPI,deleteUserAPI } from './services/UserService'
 
 function App(){
-
-  
   const [user, setuser] = useState({});
   const [users, setusers] = useState([]);
   const [userscount, setuserscount] = useState(0);
@@ -18,7 +16,6 @@ function App(){
     createUserAPI(user)
         .then(response => {
           console.log(response);
-          // this.setState({numberOfUsers: this.state.numberOfUsers + 1})
           setuserscount(userscount+1);
       });
       getAllUsers()

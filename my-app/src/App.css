@@ -1,10 +1,10 @@
 
 .header {
   width: 100%;
-  padding: 2%;
-  background-color: burlywood;
-  color: white;
-  text-align: center;
+  padding: 20px;
+  background-color: #eeeeee;
+  height: 70px;
+  /* display: inline-flex; */
 }
 
 .display-board {
